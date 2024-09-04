@@ -3,17 +3,42 @@ import { auth } from "../utils/firebase";
 import { NetflixLogo, UserIcon } from "../utils/imgs";
 import { signOut } from "firebase/auth";
 import {  useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { onAuthStateChanged } from "firebase/auth";
+import { useEffect } from "react";
+import { addUser, removeUser } from "../utils/userSlice";
+import { EmptyStore } from "../utils/moviesSlice";
+
 
 const Header = () => {
 
+  const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const navigate = useNavigate();
   
 
   const handelSignOut = () =>{
-    signOut(auth);
-    navigate("/")
+    signOut(auth); 
   }
+
+  useEffect(() => {
+    const unsubcribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, displayName } = user;
+        dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
+        navigate("/browser")
+      } else {
+        dispatch(removeUser());
+        navigate("/")
+        dispatch(EmptyStore());
+      }
+    });
+      // unsubcriibe is call when component unmounts
+    return () =>unsubcribe();
+
+  }, []);
+
+
 
   return (
     <div className="absolute flex  justify-between sm:px-12 bg-gradient-to-b from-black w-full z-10  ">

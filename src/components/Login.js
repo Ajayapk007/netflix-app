@@ -8,12 +8,10 @@ import Header from "./Header";
 import { BgImage } from "../utils/imgs";
 import { checkValidData } from "../utils/validate";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
 const Login = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   
   const [isSignForm, setIsSignForm] = useState(true);
@@ -54,8 +52,6 @@ const Login = () => {
               email: email,
               displayName: displayName,
             }))
-
-            navigate("/browser");
           })
           .catch((error) => {
             setErrorMsgAuth(error.code);
@@ -77,7 +73,6 @@ const Login = () => {
       )
       .then((userCredential) => {
         // const user = userCredential.user;
-        navigate("/browser");
         })
         .catch((error) => {
           const errorMessage = error.code;
