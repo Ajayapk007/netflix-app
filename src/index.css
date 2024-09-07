@@ -7,3 +7,6 @@
     margin: 0;
     box-sizing: border-box;
 }
+.ScroolBar::-webkit-scrollbar {
+    display: none; /* For Webkit browsers */
+  }

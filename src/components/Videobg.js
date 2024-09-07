@@ -7,7 +7,7 @@ const Videobg = ({ movieId }) => {
   useMovieVideo({setVideoKey, movieId});
   
   return (
-    <div className=" h-[100vh] w-[100vw] "
+    <div className=""
     >
       <iframe
         className="w-screen aspect-video object-container -mt-1 "
