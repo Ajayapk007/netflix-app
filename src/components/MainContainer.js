@@ -1,24 +1,24 @@
 import { useDispatch, useSelector } from "react-redux";
 import VideoTitle from "./VideoTitle";
 import Videobg from "./Videobg";
-import { toggleGptSearchView} from "../utils/gptSearchSlice";
+import { toggleSearchBar} from "../utils/gptSearchSlice";
 
 const MainContainer = () =>{
     const  movies = useSelector((stroe) => stroe.moviesList?.NowplayingMovies);
-    const  searchToogle = useSelector((stroe) => stroe.gpt?.showGptSearch);
+    const  searchToogle = useSelector((stroe) => stroe.gpt?.showSearchBar);
     const dispatch = useDispatch();
     
     const haldleSearchToggle = ()=>{
         if(searchToogle)
         {
-        dispatch(toggleGptSearchView());
+        dispatch(toggleSearchBar());
         }
     }
 
 
     if(!movies) return;
 
-    const mainMovie = movies[1];
+    const mainMovie = movies[3];
 
     const {original_title, 
         overview,

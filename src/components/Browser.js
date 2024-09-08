@@ -5,27 +5,36 @@ import SecondContainer from "./SecondContainer";
 import usePopularMovies from "../hooks/usePopularMovies";
 import useTrendingMovies from "../hooks/useTrendingMovies";
 import useUpcomingMovies from "../hooks/useUpcomingMovies";
-import GptSearch from "./GptSearch";
+import SearchBar from "./SearchBar";
 import {  useSelector } from "react-redux";
+import Shimmer from "./Shimmer";
+import Footer from "./Footer";
+import GptSearch from "./GptSearch";
 
 const Browser = () => {
   
-  const toggleBool = useSelector(store => store.gpt.showGptSearch);
-  
+  const toggleBar = useSelector(store => store.gpt.showSearchBar);
+  const togglegpt = useSelector(store => store.gpt.showSearchGpt);
+  const fetchedData = useSelector(store => store.moviesList.NowplayingMovies) 
   useNowPlayingMovies();
   usePopularMovies();
   useTrendingMovies();  
   useUpcomingMovies();
-
-  return (
+  
+    return fetchedData === null ? <Shimmer /> : (
     <div>
       <Header />
 
-      { toggleBool  && <GptSearch />}
+      { toggleBar  && <SearchBar />}
 
-      <MainContainer />
+      { togglegpt ? <GptSearch /> :<>
+        <MainContainer />
 
       <SecondContainer />
+      </>
+      }
+
+      <Footer />
     </div>
   );
 };

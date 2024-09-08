@@ -10,6 +10,7 @@ import { checkValidData } from "../utils/validate";
 import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import Footer from "./Footer";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -173,27 +174,8 @@ const Login = () => {
         </form>
       </div>
 
-      {/* //footer */}
-      <div className=" pt-72 bg-black  relative  ">
-        <div className=" w-5/6  m-auto text-gray-300 ">
-          <p className=" my-4">Questions? Call 000-800-919-1694 </p>
-
-          <ul className="flex gap-x-36 flex-wrap ">
-            <li className=" mt-4 underline">FAQ</li>
-            <li className=" mt-4 underline">Help Centre</li>
-            <li className=" mt-4 underline">Help Centre</li>
-            <li className=" mt-4 underline">Terms of Use</li>
-            <li className=" mt-4 underline">Privacy</li>
-            <li className=" mt-4 underline">Cookie Preferences</li>
-            <li className=" mt-4 underline">Corporate Information</li>
-          </ul>
-
-          <select className=" my-8 bg-black p-1 outline rounded-sm ">
-            <option>अA English</option>
-            <option>अA हिन्दी</option>
-          </select>
-        </div>
-      </div>
+      <Footer />
+      
     </div>
   );
 };

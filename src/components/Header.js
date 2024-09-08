@@ -8,15 +8,15 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { addUser, removeUser } from "../utils/userSlice";
 import { EmptyStore } from "../utils/moviesSlice";
-import { toggleGptSearchView } from "../utils/gptSearchSlice";
+import { toggleSearchBar } from "../utils/gptSearchSlice";
+import { toggleSearchGpt } from "../utils/gptSearchSlice";
 
 
 const Header = () => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const navigate = useNavigate();
-  const toggleBool = useSelector(store => store.gpt.showGptSearch);
-  
+  const toggleBar = useSelector(store => store.gpt.showSearchBar);
 
   const handelSignOut = () => {
     signOut(auth);
@@ -30,8 +30,8 @@ const Header = () => {
         navigate("/browser");
       } else {
         dispatch(removeUser());
-        navigate("/");
         dispatch(EmptyStore());
+        navigate("/");
       }
     });
     // unsubcriibe is call when component unmounts
@@ -40,8 +40,12 @@ const Header = () => {
 
   const toggleGotSearch = ()=>{
    //toggle Gpt search 
-    dispatch(toggleGptSearchView());
+    dispatch(toggleSearchBar());
   }
+  const handleGpt = ()=>{
+      dispatch(toggleSearchGpt());
+  }
+
 
   return (
     <div className="absolute flex  justify-between sm:px-12 bg-gradient-to-b from-black w-full z-10  ">
@@ -50,12 +54,12 @@ const Header = () => {
       {user && (
         <div className=" flex items-center gap-2 ">
           
-          { !toggleBool && <div className=" cursor-pointer w-9 mx-3"
+          { !toggleBar && <div className=" cursor-pointer w-9 mx-3"
           onClick={toggleGotSearch}
           >
             <img src="https://img.icons8.com/?size=100&id=2sWrwEXiaegS&format=png&color=FFFFFF" />  
           </div>  }
-          <img src={UserIcon} className=" h-12 rounded-md " alt="UserIcon" />
+          <img src={UserIcon} onClick={handleGpt} className=" h-12 rounded-md " alt="UserIcon" />
 
           <select className=" w-[24px] ">
             <option></option>
